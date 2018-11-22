@@ -35,3 +35,4 @@ class ListUserSerializer(serializers.ModelSerializer):
             'username',
             'name',
         )
+
