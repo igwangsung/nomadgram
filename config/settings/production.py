@@ -25,6 +25,7 @@ DATABASES = {
     }
 }
 
+DEBUG = True
 
 REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL',default='redis://127.0.0.1:6379'), 0)
 # CACHES
@@ -59,7 +60,7 @@ CACHES = {
 # CSRF_COOKIE_HTTPONLY = True
 # # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
-# # TODO: set this to 60 seconds first and then to 518400 once you prove the former works
+# #  set this to 60 seconds first and then to 518400 once you prove the former works
 # SECURE_HSTS_SECONDS = 60
 # # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-include-subdomains
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True)
