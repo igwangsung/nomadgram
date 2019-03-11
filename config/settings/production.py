@@ -7,11 +7,7 @@ from .base import env
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 # ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['gangram.com'])
-ALLOWED_HOSTS = [
-            "*",
-        "localhost",
-        "http://kwanggram.ap-northeast-2.elasticbeanstalk.com/",
-    ]
+ALLOWED_HOSTS = ["*"]
 # DATABASES
 # ------------------------------------------------------------------------------
 # DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
@@ -76,10 +72,15 @@ CACHES = {
 # # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 # X_FRAME_OPTIONS = 'DENY'
 
+# Gunicorn
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ['gunicorn', ]  # noqa F405
+
+
 # STORAGES
 # ------------------------------------------------------------------------------
 # https://django-storages.readthedocs.io/en/latest/#installation
-INSTALLED_APPS += ['storages']  # noqa F405
+INSTALLED_APPS += ['storages', ]  # noqa F405
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
 AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
@@ -156,7 +157,7 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 # Collectfast
 # ------------------------------------------------------------------------------
 # https://github.com/antonagestam/collectfast#installation
-INSTALLED_APPS = ['collectfast'] + INSTALLED_APPS  # noqa F405
+INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS  # noqa F405
 AWS_PRELOAD_METADATA = True
 
 
@@ -223,6 +224,3 @@ LOGGING = {
 #     'MAILGUN_SENDER_DOMAIN': env('MAILGUN_DOMAIN')
 # }
 
-# Gunicorn
-# ------------------------------------------------------------------------------
-# INSTALLED_APPS += ['gunicorn']  # noqa F405
