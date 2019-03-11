@@ -24,16 +24,16 @@ class Container extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { searchByTerm, pathname } = this.props;
+		// const { searchByTerm, pathname } = this.props;
 		if (nextProps.userList && nextProps.imageList) {
 			this.setState({
 				loading: false,
 			});
 		}
 
-		if (nextProps.pathname !== pathname) {
-			searchByTerm();
-		}
+		// if (nextProps.pathname !== pathname) {
+		// 	searchByTerm();
+		// }
 	}
 
 	render() {
