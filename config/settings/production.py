@@ -24,7 +24,11 @@ DATABASES = {
         'PORT': env('RDS_DB_PORT'),
     }
 }
-
+# ADMIN
+# ------------------------------------------------------------------------------
+# Django Admin URL regex.
+# ADMIN_URL = env('DJANGO_ADMIN_URL')
+ADMIN_URL = 'admin/'
 DEBUG = True
 
 REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL',default='redis://127.0.0.1:6379'), 0)
@@ -149,10 +153,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [  # noqa F405
 # # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 # EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Nomad Coder]')
 
-# ADMIN
-# ------------------------------------------------------------------------------
-# Django Admin URL regex.
-ADMIN_URL = env('DJANGO_ADMIN_URL')
+
 
 
 # Collectfast
