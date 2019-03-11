@@ -16,7 +16,7 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['gangram.com'])
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_pycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('RDS_DB_NAME'),
         'USER': env('RDS_DB_USERNAME'),
         'PASSWORD': env('RDS_DB_PASSWORD'),
