@@ -14,7 +14,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='TmUB4gTFa4s6CJhGxGu6vomxCFZ2svK1J
 #     "127.0.0.1",
 #     "ccbc7a8b.ngrok.io",
 # ]
-ALLOWED_HOSTS = ["kwanggram.ap-northeast-2.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["*"]
 
 # CACHES
 # ------------------------------------------------------------------------------
