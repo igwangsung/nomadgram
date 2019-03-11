@@ -13,8 +13,8 @@ import datetime
 @python_2_unicode_compatible
 class TimeStampedModel(models.Model):
     
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=datetime.datetime.now)
+    updated_at = models.DateTimeField(default=datetime.datetime.now)
     #새로고침할때만다 업데이트 됨.
 
     class Meta: 
