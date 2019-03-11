@@ -38,6 +38,7 @@ django-rest-auth = "*"
 django-cors-headers = "*"
 imagekit = "*"
 awsebcli = "*"
+"0" = "*"
 
 [dev-packages]
 pylint = "*"
