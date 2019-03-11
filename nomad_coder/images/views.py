@@ -13,7 +13,7 @@ class ListAllImages(APIView):
         
         all_images = models.Image.objects.all()
 
-        serializer = serializers.ImageSerializer(all_images, many=True) #serializer is Class
+        serializer = serializers.ImageSerializer(all_images, many=True, context={'request':request}) #serializer is Class
         
         return Response(data=serializer.data) #data  쓰는거 잊지말기!! 
 
@@ -63,8 +63,8 @@ class Images(APIView):
         #There are some bugs bc of created_at, updated_at Field
         #InLine Function --> lambda
         sorted_list = sorted(image_list,key=lambda image:  image.created_at, reverse=True)  
-
-        serializer = serializers.ImageSerializer(sorted_list, many=True)
+        #context 전달하기 시리얼라이즈에 view에 있는 정보 전달하기
+        serializer = serializers.ImageSerializer(sorted_list, many=True, context={'request':request})
 
         return Response(data=serializer.data)
 
@@ -104,7 +104,7 @@ class ImageDetail(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         
         #Is Single so, I don't need 'many=True'
-        serializer = serializers.ImageSerializer(image)
+        serializer = serializers.ImageSerializer(image, context={'request':request})
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -137,7 +137,7 @@ class ImageDetail(APIView):
         image = self.find_own_image(image_id, user)
 
         if image is None:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         image.delete()
 
@@ -155,8 +155,8 @@ class LikeImage(APIView):
         like_creator_ids = likes.values('creator_id') # DB objects makes automatically creator_id...?
        
         users = user_models.User.objects.filter(id__in=like_creator_ids)
-
-        serializer = user_serializers.ListUserSerializer(users, many=True)
+        #, context={"request":request} 이게 무슨 의미일까?
+        serializer = user_serializers.ListUserSerializer(users, many=True, context={"request":request})
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -192,27 +192,46 @@ class LikeImage(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
             
-class UnLikeImage(APIView):
+# class UnLikeImage(APIView):
     
+#     def delete(self, request, image_id, format=None):
+#         user = request.user
+
+#         try:
+#             found_image = models.Image.objects.get(id=image_id)
+#         except models.Image.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#         try: 
+#             preexisting_like = models.Like.objects.get(
+#                 creator=user,
+#                 image=found_image
+#             )
+#             preexisting_like.delete()
+#             return Response(status=status.HTTP_204_NO_CONTENT)
+#         except models.Like.DoesNotExist:
+
+#             return Response(status=status.HTTP_304_NOT_MODIFIED)
+class UnLikeImage(APIView):
+
     def delete(self, request, image_id, format=None):
+
         user = request.user
 
         try:
-            found_image = models.Image.objects.get(id=image_id)
-        except models.Image.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        try: 
-            preexisting_like = models.Like.objects.get(
+            preexisiting_like = models.Like.objects.get(
                 creator=user,
-                image=found_image
+                image__id=image_id
             )
-            preexisting_like.delete()
+            preexisiting_like.delete()
+
             return Response(status=status.HTTP_204_NO_CONTENT)
+
         except models.Like.DoesNotExist:
 
             return Response(status=status.HTTP_304_NOT_MODIFIED)
 
+            
 class CommentOnImage(APIView):
 
     def post(self, request, image_id, format=None):
@@ -282,10 +301,13 @@ class Search(APIView):
 
             images = models.Image.objects.filter(tags__name__in=hashtags).distinct()
 
-            serializer = serializers.CountImageSerializer(images, many=True)
+            serializer = serializers.CountImageSerializer(images, many=True, context={'request':request})
 
             return Response(data=serializer.data, status=status.HTTP_200_OK)
 
         else: 
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            images = models.Image.objects.all()[:20]#전체 URL을 볼수 있도록!! 
+            serializer = serializers.CountImageSerializer(images, many=True, context={'request':request})
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
         
+

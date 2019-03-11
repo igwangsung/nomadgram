@@ -72,9 +72,9 @@ THIRD_PARTY_APPS = [
     'taggit', #Tags
     'taggit_serializer',
     'rest_auth',
-    'rest_auth.registration',
-
-]
+    'rest_auth.registration', 
+    'corsheaders', #To accept requests from React
+    ]
 '''
 from django.conf.urls import url
 from . import views
@@ -153,6 +153,7 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,6 +170,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
     str(APPS_DIR.path('static')),
+    str(ROOT_DIR.path('frontend','build','static')),
 ]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
@@ -236,6 +238,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.s
 # ------------------------------------------------------------------------------
 # Django Admin URL.
 ADMIN_URL = 'admin/'
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
     ("""Daniel Roy Greenfeld""", 'leeks8060@gmail.com'),
@@ -276,3 +279,49 @@ REST_FRAMEWORK = {
 
 REST_USE_JWT = True
 ACCOUNT_LOGOUT_ON_GET = True
+CORS_ORIGIN_ALLOW_ALL = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+JWT_AUTH = {
+    'JWT_VERIFY_EXPIRATION' : False
+}
+#토큰이 절대 만료되지 않게 하기위해
+
+SOCIALACCOUNT_PROVIDERS = {  
+    'facebook': {  
+        'SCOPE': [  
+            'email',  
+            'public_profile',  
+            'user_friends'  
+        ],  
+        'FIELDS': [  
+            'id',  
+            'email',  
+            'name',  
+            'first_name',  
+            'last_name',  
+            'verified',
+            'locale',  
+            'timezone',  
+            'link',  
+            'gender',  
+            'updated_time',
+            'picture' 
+        ],  
+        'AUTH_PARAMS': {  
+            #'auth_type': 'reauthenticate'  
+        },  
+        'METHOD': 'oauth2',  
+        #'LOCALE_FUNC': 'path.to.callable',  
+        'VERIFIED_EMAIL': True,  
+        'VERSION': 'v2.4'  
+    }
+}  
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'nomad_coder.users.serializers.SignUpSerializer'
+}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': "nomad_coder.users.serializers.UserProfileSerializer"
+}

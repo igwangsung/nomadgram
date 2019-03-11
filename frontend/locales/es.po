@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Language: es"
+
+#: src/components/AuthForms/index.js
+msgid "Username"
+msgstr "유저 이름"
+
+#: src/components/AuthForms/index.js
+msgid "Password"
+msgstr "비밀번호"
+
+#: src/components/AuthForms/index.js
+msgid "Email"
+msgstr "이메일"
+
+#: src/components/AuthForms/index.js
+msgid "Full Name"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "About Us"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Support"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Blog"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Press"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "API"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Jobs"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Privacy"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Terms"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Directory"
+msgstr ""
+
+#: src/components/Footer/index.js
+msgid "Language"
+msgstr ""
+
