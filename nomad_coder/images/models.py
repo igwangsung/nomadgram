@@ -4,8 +4,9 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from taggit.managers import TaggableManager
-import datetime
 
+
+import time
 #request.user.id -> o request.get('user.id') -> x
 # now = timezone.localtime()
 # 아직 Admin 모델에 연결을 안해서 Admin에서 볼수 없는 것임.
@@ -13,8 +14,10 @@ import datetime
 @python_2_unicode_compatible
 class TimeStampedModel(models.Model):
     
-    created_at = models.DateTimeField(default=datetime.datetime.now)
-    updated_at = models.DateTimeField(default=datetime.datetime.now)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # created_at = models.DateTimeField(default=datetime.now.timestamp())
+    # updated_at = models.DateTimeField(default=datetime.now.timestamp())
     #새로고침할때만다 업데이트 됨.
 
     class Meta: 

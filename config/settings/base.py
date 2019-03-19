@@ -38,10 +38,10 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-# DATABASES = {
-#     'default': env.db('DATABASE_URL', default='postgres:///nomadgram'),
-# }
-# DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES = {
+    'default': env.db('DATABASE_URL', default='postgres:///postgres'),
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
 # ------------------------------------------------------------------------------
